@@ -128,7 +128,7 @@
             },
             "attrs": {
               "text": {
-                "text": "Trust boundary 1"
+                "text": "Trust boundary 1\nUser input"
               }
             },
             "visible": true,
@@ -137,17 +137,8 @@
             "id": "b27e7f53-dcd4-4331-ac2e-5042a140b1e6",
             "data": {
               "type": "tm.Text",
-              "name": "Trust boundary 1",
+              "name": "Trust boundary 1\nUser input",
               "hasOpenThreats": false
-            },
-            "tools": {
-              "items": [
-                "boundary",
-                "button-remove",
-                "boundary",
-                "button-remove"
-              ],
-              "name": null
             }
           },
           {
