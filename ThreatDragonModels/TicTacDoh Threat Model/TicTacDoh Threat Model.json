@@ -1,0 +1,16 @@
+{
+  "version": "2.6.1-RC1",
+  "summary": {
+    "title": "TicTacDoh Threat Model",
+    "owner": "Larsin murad ",
+    "description": "Function-level STRIDE threat model for COMP3310 Assignment 1",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [],
+    "diagramTop": 0,
+    "reviewer": "",
+    "threatTop": 0
+  }
+}
