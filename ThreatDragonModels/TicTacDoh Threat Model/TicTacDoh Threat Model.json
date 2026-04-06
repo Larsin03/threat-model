@@ -128,7 +128,7 @@
             },
             "attrs": {
               "text": {
-                "text": "rust boundary 1:\nUser input"
+                "text": "Trust boundary 1"
               }
             },
             "visible": true,
@@ -137,8 +137,17 @@
             "id": "b27e7f53-dcd4-4331-ac2e-5042a140b1e6",
             "data": {
               "type": "tm.Text",
-              "name": "rust boundary 1:\nUser input",
+              "name": "Trust boundary 1",
               "hasOpenThreats": false
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove",
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
             }
           },
           {
