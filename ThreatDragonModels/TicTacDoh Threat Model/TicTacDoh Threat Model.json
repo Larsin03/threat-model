@@ -1280,11 +1280,13 @@
                 "text": "tictactoe.db\nSQLite database"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -1381,13 +1383,46 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "7c712635-8061-41e5-a3ab-a9b7c23b9110",
+                  "title": "Direct database modification",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Unencrypted DB with default permissions can be edited by any local user",
+                  "mitigation": "Set file permissions to 0o600 and add integrity checks",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 15,
+                  "score": ""
+                },
+                {
+                  "id": "a17929ed-3d48-415d-afcc-1f31eb6064ca",
+                  "title": "Password hash exposure",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "DB is readable by any local user exposing all credential hashes",
+                  "mitigation": "Encrypt database or use restrictive file permissions",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 16,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
             }
           },
           {
@@ -1631,7 +1666,15 @@
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -1648,8 +1691,8 @@
                 "text": "_hash_password()\nMD5, no salt"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -1746,12 +1789,47 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "8c1b3ab7-9f54-41f8-8625-526a04f89605",
+                  "title": "MD5 hashes are reversible",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Information disclosure",
+                  "description": "Unsalted MD5 allows rainbow table attacks to recover all passwords",
+                  "mitigation": "Replace MD5 with bcrypt or argon2id with automatic salting",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": ""
+                },
+                {
+                  "id": "7079ce06-ab4c-41bf-97ae-bbd13391df6f",
+                  "title": "Credential compromise via weak hashing",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "Attacker with DB access can recover passwords and impersonate any user",
+                  "mitigation": "Use bcrypt with per-password salts",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -1768,8 +1846,8 @@
                 "text": "authenticate_user()\nVerify credentials"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -1866,12 +1944,47 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "03753ebc-fd49-48d2-b989-631a4f6b5739",
+                  "title": "Brute force with no lockout",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "No failed attempt tracking allows unlimited password guessing",
+                  "mitigation": "Add failed attempt counter with temporary lockout",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 13,
+                  "score": ""
+                },
+                {
+                  "id": "7d48ef74-e32b-4a10-af24-a0e399c6f5d2",
+                  "title": "No logging of auth events",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Repudiation",
+                  "description": "Failed and successful logins are not recorded anywhere",
+                  "mitigation": "Implement Python logging module for all auth events",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 14,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "tampering": 0,
+                "repudiation": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -2128,8 +2241,8 @@
                 "text": "save_game()\nJSON to filesystem"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -2226,12 +2339,34 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "32308dd3-a22d-4d5f-b153-cb5b4bf4b047",
+                  "title": "Plaintext data exposure",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "Save files store player usernames in plaintext with no encryption",
+                  "mitigation": "Encrypt save files or restrict file permissions",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 19,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -2248,8 +2383,8 @@
                 "text": "load_game()\nPath traversal risk"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -2346,12 +2481,60 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "be6b3d55-a4c0-4962-af04-e086d4d97137",
+                  "title": "Path traversal via game_id",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "User-supplied game_id enables reading files outside savegames directory",
+                  "mitigation": "Validate game_id as UUID format and canonicalise the path",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": ""
+                },
+                {
+                  "id": "1b6bdf85-af2b-4f94-9fc5-8f7d922293a4",
+                  "title": "Identity spoofing via save file",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "load_game sets current_user from file contents bypassing authentication",
+                  "mitigation": "Verify loaded player matches authenticated session",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 11,
+                  "score": ""
+                },
+                {
+                  "id": "022853c0-b73b-488e-9f81-87b44b23ab9d",
+                  "title": "Save file tampering",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Attacker can edit JSON save files to alter board state or swap players",
+                  "mitigation": "Add HMAC integrity checks to save files",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 12,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -2368,8 +2551,8 @@
                 "text": "end_game()\nRecord results"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -2466,12 +2649,34 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "637e52a0-7019-4544-aa10-1409fb656f08",
+                  "title": "No audit trail for results",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "Game results can be disputed as no logging exists",
+                  "mitigation": "Log all game outcomes with timestamps",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 20,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -2488,8 +2693,8 @@
                 "text": "get_scoreboard()\nNo auth required"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -2586,12 +2791,34 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "2a478a7f-14d9-4623-942b-7a240ff5f2fb",
+                  "title": "User enumeration without auth",
+                  "status": "Open",
+                  "severity": "Low",
+                  "type": "Information disclosure",
+                  "description": "All registered usernames visible from main menu without login",
+                  "mitigation": "Require authentication before viewing scoreboard",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 17,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           }
         ],
@@ -2600,6 +2827,6 @@
     ],
     "diagramTop": 3,
     "reviewer": "",
-    "threatTop": 5
+    "threatTop": 20
   }
 }
