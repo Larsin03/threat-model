@@ -1,0 +1,16 @@
+{
+  "version": "2.6.2",
+  "summary": {
+    "title": "Riddle Me This - Security Analysis (Task 2)",
+    "owner": "Larsin-Murad47935529",
+    "description": "A Flask based web application that delivers a 10 question riddle game. The user enters a username and answers riddles in sequence with up to three guesses per riddle, and the final score is appended to a flat file leaderboard. All persistent data is stored in plaintext files in a data/ directory on the server's local filesystem.",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [],
+    "diagramTop": 0,
+    "reviewer": "",
+    "threatTop": 0
+  }
+}
